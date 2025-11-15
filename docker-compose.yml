@@ -74,6 +74,10 @@ services:
         "8081",
         "-config",
         "api.disablekey=true",
+        "-config",
+        "api.addrs.addr.name=.*",
+        "-config",
+        "api.addrs.addr.regex=true",
       ]
     ports:
       - "8081:8081"
