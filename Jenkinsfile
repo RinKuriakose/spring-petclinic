@@ -163,7 +163,7 @@ pipeline {
                 mkdir -p zap-reports
                 chmod 777 zap-reports
                 
-                # Run ZAP scan and generate HTML report
+                # Run ZAP scan
                 docker run --rm \
                     --network=spring-petclinic_devops-net \
                     --user root \
@@ -186,20 +186,20 @@ pipeline {
                 else
                     echo "⚠️ ZAP HTML report not found, creating placeholder"
                     cat > zap_report.html <<EOF
-<html>
-<head><title>OWASP ZAP Scan Report</title></head>
-<body>
-  <h1>OWASP ZAP Security Scan</h1>
-  <h2>Scan completed with the following results:</h2>
-  <ul>
-    <li><strong>Warnings:</strong> 11</li>
-    <li><strong>Tests Passed:</strong> 56</li>
-    <li><strong>Failures:</strong> 0</li>
-  </ul>
-  <p>The HTML report failed to generate. Please check the <a href="../consoleFull">console output</a> for detailed results.</p>
-</body>
-</html>
-EOF
+                        <html>
+                        <head><title>OWASP ZAP Scan Report</title></head>
+                        <body>
+                        <h1>OWASP ZAP Security Scan</h1>
+                        <h2>Scan completed with the following results:</h2>
+                        <ul>
+                            <li><strong>Warnings:</strong> 11</li>
+                            <li><strong>Tests Passed:</strong> 56</li>
+                            <li><strong>Failures:</strong> 0</li>
+                        </ul>
+                        <p>The HTML report failed to generate. Please check the <a href="../consoleFull">console output</a> for detailed results.</p>
+                        </body>
+                        </html>
+                        EOF
                 fi
                 
                 rm -rf zap-reports
