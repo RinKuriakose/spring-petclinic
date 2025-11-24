@@ -1,21 +1,38 @@
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     user: root
     container_name: jenkins
+    privileged: true
     ports:
-      - "8080:8080"
+      - "8082:8080"
       - "50000:50000"
     environment:
       - JENKINS_OPTS=--prefix=/jenkins
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs/jenkins.yaml
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./jenkins.yaml:/var/jenkins_home/casc_configs/jenkins.yaml
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - devops-net
+    depends_on:
+      - sonarqube
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: petclinic
+      POSTGRES_USER: petclinic
+      POSTGRES_PASSWORD: petclinic
+    ports:
+      - "5432:5432"
     networks:
       - devops-net
 
   sonarqube:
-    image: sonarqube:10.5.1-community
+    image: sonarqube:lts-community
     container_name: sonarqube
     ports:
       - "9000:9000"
@@ -71,14 +88,32 @@ services:
         "-host",
         "0.0.0.0",
         "-port",
-        "8081",
+        "8083",
         "-config",
         "api.disablekey=true",
       ]
     ports:
-      - "8081:8081"
+      - "8083:8081"
     volumes:
       - ./zap/wrk:/zap/wrk
+    networks:
+      - devops-net
+
+  petclinic:
+    image: petclinic:latest
+    container_name: petclinic
+    ports:
+      - "8081:8080"
+    networks:
+      - devops-net
+
+  maven-java25:
+    build:
+      context: .
+      dockerfile: Dockerfile.maven-java25
+    image: maven-java25:latest
+    container_name: maven-java25-builder
+    command: ["tail", "-f", "/dev/null"]
     networks:
       - devops-net
 
