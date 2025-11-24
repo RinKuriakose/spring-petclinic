@@ -1,0 +1,26 @@
+FROM jenkins/jenkins:jdk17
+
+USER root
+
+# Install Docker CLI
+RUN apt-get update && \
+    apt-get install -y docker.io && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+USER jenkins
+
+# Pre-install plugins (including htmlpublisher)
+RUN jenkins-plugin-cli --plugins \
+    git \
+    workflow-aggregator \
+    sonar \
+    jacoco \
+    pipeline-github-lib \
+    docker-workflow \
+    timestamper \
+    warnings-ng \
+    htmlpublisher \
+    configuration-as-code \
+    blueocean \
+    prometheus

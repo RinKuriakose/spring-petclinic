@@ -38,18 +38,3 @@ tool:
       - name: "JDK 25"
         home: "/usr/lib/jvm/jdk-25"
 
-plugins:
-  required:
-    - git
-    - workflow-aggregator
-    - sonar
-    - jacoco
-    - pipeline-github-lib
-    - docker-workflow
-    - timestamper
-    - warnings-ng
-    - zap
-    - configuration-as-code
-    - blueocean
-    - prometheus
-    - htmlpublisher
