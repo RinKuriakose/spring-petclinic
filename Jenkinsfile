@@ -171,6 +171,7 @@ pipeline {
                 docker run --rm \
                     --network=spring-petclinic_devops-net \
                     -v $(pwd):/zap/wrk \
+                    -w /zap/wrk \
                     --user=$(id -u):$(id -g) \
                     "${ZAP_IMAGE}" zap-baseline.py \
                     -t http://petclinic:8080 \
