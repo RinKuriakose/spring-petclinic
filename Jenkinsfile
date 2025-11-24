@@ -168,6 +168,8 @@ pipeline {
                     ZAP_IMAGE="${ZAP_FALLBACK_IMAGE}"
                 fi
 
+                rm -f zap_report.html
+
                 docker run --rm \
                     --network=spring-petclinic_devops-net \
                     -v $(pwd):/zap/wrk \
@@ -178,10 +180,10 @@ pipeline {
                     -r zap_report.html \
                     -I
 
-                if [ -f zap_report.html ]; then
+                if [ -s zap_report.html ]; then
                     echo "ZAP report generated at $(pwd)/zap_report.html"
                 else
-                    echo "ZAP report not found; creating placeholder for visibility"
+                    echo "ZAP report missing or empty; creating placeholder for visibility"
                     cat > zap_report.html <<'EOF'
 <html>
   <body>
