@@ -166,6 +166,7 @@ pipeline {
                 # Run ZAP scan
                 docker run --rm \
                     --network=spring-petclinic_devops-net \
+                    --user root \
                     -v $(pwd)/zap-reports:/zap/wrk:rw \
                     ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
                     -t http://petclinic:8080 \
