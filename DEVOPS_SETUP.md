@@ -256,7 +256,7 @@ If you see this, **skip to next**. If not, continue with Option B.
 
 #### 6.6 Verify Tools Configuration
 
-1. Go to **"Manage Jenkins"** → **"Global Tool Configuration"**
+1. Go to **"Manage Jenkins"** → **"Global Tool Configuration"** or **"Tools"** (in the new Jenkins UI)
 2. Verify you see:
    - **Maven installations:** `Maven 3.9.5`
    - **JDK installations:** `JDK 25`
