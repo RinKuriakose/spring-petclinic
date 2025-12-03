@@ -48,4 +48,4 @@ _site/
 !petclinic.css
 
 .env
-.env.local
+.env.locallog.txt
