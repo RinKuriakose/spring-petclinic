@@ -100,7 +100,7 @@ services:
       - devops-net
 
   petclinic:
-    image: petclinic:latest
+    image: springcommunity/spring-petclinic-rest
     container_name: petclinic
     ports:
       - "8081:8080"
